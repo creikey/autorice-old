@@ -2,12 +2,12 @@
 
 set_up_network() {
   ipinfo="$(ip link)"
-  printf "$ipinfo\n"
+  printf "__\n$ipinfo\n--\n"
   while :
   do
     read -p "Enter desired interface: " interface
-    printf "Setting interface $interface..."
-    if [[ $ipinfo = *"$interface" ]]; then
+    printf "\nSetting interface $interface..."
+    if [[ $ipinfo = *"$interface"* ]]; then
       printf "OK!\n"
       break;
     else
@@ -21,7 +21,7 @@ set_up_network() {
   else
     printf "OK!\n"
   fi
-  printf "Restarting systemd-networkd..."
+  printf "Restarting systemd-networkd...\n"
   systemctl restart systemd-networkd
   err="$?"
   if [ "$err" != "0" ]; then
@@ -46,4 +46,4 @@ set_up_network() {
   fi
 }
 
-set_up_network()
+set_up_network
