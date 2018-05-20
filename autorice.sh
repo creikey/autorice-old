@@ -1,6 +1,11 @@
 #!/bin/bash
 
-set_up_network() {
+network-online() {
+  ping -c 1 www.google.com &> /dev/null
+  echo "$?"
+}
+
+set-up-network() {
   ipinfo="$(ip link)"
   printf "__\n$ipinfo\n--\n"
   while :
@@ -46,4 +51,10 @@ set_up_network() {
   fi
 }
 
-set_up_network
+printf "Checking network..."
+if [ "$(network-online)" != "0" ]; then
+  printf "FAIL!\n> Setting up network\n"
+  set-up-network
+else
+  printf "OK!\n"
+fi
