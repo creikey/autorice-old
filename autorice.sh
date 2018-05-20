@@ -90,7 +90,6 @@ if [ "$ans" == "y" ]; then
     printf "FAIL!\n> Exited with error code $err\n"
     open-log "update.log"
     exit 1
-    fi
   else
     printf "OK!\n"
   fi
