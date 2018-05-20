@@ -52,7 +52,7 @@ set-up-network() {
 }
 
 update-packages() {
-  yes | pacman -Syu &> "update.log"
+  yes | pacman -Syu | tee &> "update.log" | grep "#"
   echo "$?"
 }
 
