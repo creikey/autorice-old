@@ -80,5 +80,7 @@ if [ "$ans" == "y" ]; then
       printf "FAIL!\n> Log doesn't exist? This should never happen, exiting\n"
       exit
     fi
+  else
+    printf "OK!\n"
   fi
 fi
