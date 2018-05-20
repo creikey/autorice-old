@@ -51,10 +51,34 @@ set-up-network() {
   fi
 }
 
+update-packages() {
+  pacman -Syu &> "update.log"
+  echo "$?"
+}
+
 printf "Checking network..."
 if [ "$(network-online)" != "0" ]; then
   printf "FAIL!\n> Setting up network\n"
   set-up-network
 else
   printf "OK!\n"
+fi
+
+printf "Update packages? "
+read -n1 ans
+printf "\n"
+if [ "$ans" == "y" ]; then
+  printf "Updating packages..."
+  err="$(update-packages)"
+  if [ "$err" != "0" ]; then
+    printf "FAIL!\n> Exited with error code $err\n"
+    printf "Dumping log..."
+    if [ -f "update.log" ]; then
+      printf "OK!\n"
+      cat "update.log"
+    else
+      printf "FAIL!\n> Log doesn't exist? This should never happen, exiting\n"
+      exit
+    fi
+  fi
 fi
