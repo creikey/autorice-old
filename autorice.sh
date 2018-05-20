@@ -53,7 +53,7 @@ set-up-network() {
 
 update-packages() {
   yes | pacman -Syu | tee &> "update.log" | grep "#"
-  echo "$?"
+  echo "${PIPESTATUS[1]}"
 }
 
 printf "Checking network..."
