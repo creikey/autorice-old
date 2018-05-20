@@ -53,7 +53,22 @@ set-up-network() {
 
 update-packages() {
   yes | pacman -Syu | tee &> "update.log" | grep "#"
-  echo "${PIPESTATUS[1]}"
+  exit "${PIPESTATUS[1]}"
+}
+
+install-i3() {
+  yes | pacman -S i3-gaps i3-wm i3blocks i3lock i3status | tee &> "installi3.log" | grep "#"
+  exit "${PIPESTATUS[1]}"
+}
+
+open-log() {
+  printf "Dumping logfile '$1'..."
+  if [ ! -f "$1" ]; then
+    printf "FAIL!\n> Log file '$1' doesn't exist"
+  else
+    printf "OK!\n"
+    cat "$1"
+  fi
 }
 
 printf "Checking network..."
@@ -69,18 +84,25 @@ read -n1 ans
 printf "\n"
 if [ "$ans" == "y" ]; then
   printf "Updating packages..."
-  err="$(update-packages)"
+  `update-packages`
+  err="$?"
   if [ "$err" != "0" ]; then
     printf "FAIL!\n> Exited with error code $err\n"
-    printf "Dumping log..."
-    if [ -f "update.log" ]; then
-      printf "OK!\n"
-      cat "update.log"
-    else
-      printf "FAIL!\n> Log doesn't exist? This should never happen, exiting\n"
-      exit
+    open-log "update.log"
+    exit 1
     fi
   else
     printf "OK!\n"
   fi
+fi
+
+printf "Installing i3..."
+`install-i3`
+err="$?"
+if [ "$err" != "0" ]; then
+  printf "FAIL!\n> Exited with error code $err\n"
+  open-log "installi3.log"
+  exit 1
+else
+  printf "OK!\n"
 fi
