@@ -102,6 +102,7 @@ open-log() {
   fi
 }
 
+clear
 printf "\n"
 center-text "Setting up a cricey machine"
 paint-str "-"
