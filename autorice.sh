@@ -89,13 +89,14 @@ update-packages() {
 
 install-i3() {
   normaldialogue="$(yes | pacman -S i3-gaps i3-wm i3blocks i3lock i3status 2>tmp.log | grep install)"
+  errnumb="${PIPESTATUS[1]}"
   center-text "Stdout" > "installi3.log"
   paint-str "-" >> "installi3.log"
   printf "$normaldialogue" >> "installi3.log"
   center-text "Stderr" >> "installi3.log"
   paint-str "-" >> "installi3.log"
   cat "tmp.log" >> "installi3.log"
-  exit "${PIPESTATUS[1]}"
+  exit "$errnumb"
 }
 
 open-log() {
