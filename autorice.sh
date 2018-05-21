@@ -51,13 +51,44 @@ set-up-network() {
   fi
 }
 
+center-text() {
+  columns=$(tput cols)
+  if [ "$1" == "" ]; then
+    while read line; do
+      printf "%*s\n" $(((${#line}+$columns)/2)) "$line"
+    done
+  else
+    printf "%*s\n" $(((${#1}+$columns)/2)) "$1"
+  fi
+}
+
+paint-str() {
+  if [ "$1" == "" ]; then
+    return
+  fi
+  x=$(tput cols)
+  charwidth=${#1}
+  while [ "$x" -gt "$charwidth" ]; do
+    printf "$1"
+    x=$((x-charwidth))
+  done
+  i=0
+  while [ "$x" -gt "-1" ]; do
+    char=$(expr substr "$1" $i 1)
+    printf "$char"
+    i=$((i+1))
+    x=$((x-1))
+  done
+  printf "\n"
+}
+
 update-packages() {
   yes | pacman -Syu | tee &> "update.log" | grep "#"
   exit "${PIPESTATUS[1]}"
 }
 
 install-i3() {
-  yes | pacman -S i3-gaps i3-wm i3blocks i3lock i3status | tee &> "installi3.log" | grep "#"
+  yes | pacman -S i3-gaps i3-wm i3blocks i3lock i3status 2>installi3.log | grep install
   exit "${PIPESTATUS[1]}"
 }
 
@@ -71,6 +102,20 @@ open-log() {
   fi
 }
 
+printf "\n"
+center-text "Setting up a cricey machine"
+paint-str "-"
+center-text "-- INFO --"
+paint-str "-"
+printf "A string of % means start and end of a debug log in a separate command\n"
+printf "Things that I'm doing end with a ... until they're completed\n"
+printf "After the thing is done, I either print 'OK!' or 'FAIL!'\n"
+printf "In case of FAIL!, on a newline I will print '> ' then the cause of failure\n"
+paint-str "="
+center-text "-! BEGIN !-"
+paint-str "-"
+paint-str "="
+printf "\n\n"
 printf "Checking network..."
 if [ "$(network-online)" != "0" ]; then
   printf "FAIL!\n> Setting up network\n"
@@ -88,7 +133,11 @@ if [ "$ans" == "y" ]; then
   err="$?"
   if [ "$err" != "0" ]; then
     printf "FAIL!\n> Exited with error code $err\n"
-    open-log "update.log"
+    printf "Show the log? "
+    read -n1 ans
+    if [ "$ans" == "y" ]; then
+      open-log "update.log"
+    fi
     exit 1
   else
     printf "OK!\n"
@@ -100,7 +149,11 @@ printf "Installing i3..."
 err="$?"
 if [ "$err" != "0" ]; then
   printf "FAIL!\n> Exited with error code $err\n"
-  open-log "installi3.log"
+  printf "Show the log? "
+  read -n1 ans
+  if [ "$ans" == "y" ]; then
+    open-log "installi3.log"
+  fi
   exit 1
 else
   printf "OK!\n"
