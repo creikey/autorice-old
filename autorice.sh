@@ -88,7 +88,13 @@ update-packages() {
 }
 
 install-i3() {
-  yes | pacman -S i3-gaps i3-wm i3blocks i3lock i3status 2>installi3.log | grep install
+  normaldialogue="$(yes | pacman -S i3-gaps i3-wm i3blocks i3lock i3status 2>tmp.log | grep install)"
+  center-text "Stdout" > "installi3.log"
+  paint-str "-" >> "installi3.log"
+  printf "$normaldialogue" >> "installi3.log"
+  center-text "Stderr" >> "installi3.log"
+  paint-str "-" >> "installi3.log"
+  cat "tmp.log" >> "installi3.log"
   exit "${PIPESTATUS[1]}"
 }
 
@@ -145,9 +151,11 @@ if [ "$ans" == "y" ]; then
   fi
 fi
 
-printf "Installing i3..."
+printf "Installing i3...\n"
 `install-i3`
 err="$?"
+printf "Installing i3..."
+
 if [ "$err" != "0" ]; then
   printf "FAIL!\n> Exited with error code $err\n"
   printf "Show the log? "
