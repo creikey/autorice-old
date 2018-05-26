@@ -31,3 +31,28 @@ void append_char(str_buff *in_buff, char in_char)
     in_buff->data[in_buff->cur_size] = in_char;
     in_buff->cur_size += 1;
 }
+
+void append_str(str_buff *in_buff, const char *in_str, size_t in_size)
+{
+    for (size_t i = 0; i < in_size; i++)
+    {
+        append_char(in_buff, in_str[i]);
+    }
+}
+
+void get_line(str_buff *in_buff, FILE *fp)
+{
+    char cur_char = fgetc(fp);
+    while (cur_char != '\n' && cur_char != EOF)
+    {
+        append_char(in_buff, cur_char);
+        cur_char = fgetc(fp);
+    }
+}
+
+char * make_n_str(str_buff * in_buff)
+{
+    char * tmp = in_buff->data;
+    free(in_buff);
+    return tmp;
+}

@@ -1,7 +1,7 @@
 #ifndef H_COMMANDS
 #define H_COMMANDS
 
-#define WHEREIS_PATH "/usr/bin/whereis"
+#define WHICH_PATH "/usr/bin/which"
 
 void init_commands();
 
