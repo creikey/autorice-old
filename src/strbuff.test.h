@@ -59,11 +59,12 @@ TEST pointer_switching(void)
 
 TEST make_normal_string(void)
 {
-    const char * to_test = "fjdsfffdsf\n\WWE ";
+    const char * to_test = "fjdsfffdsf\n\nWE ";
     str_buff * test_buff = new_str_buff();
     append_str(test_buff, to_test, strlen(to_test));
     char * got = make_n_str(test_buff);
     ASSERT_STR_EQ(to_test, got);
+    PASS();
 }
 
 GREATEST_SUITE(strbuff_test)
@@ -72,6 +73,7 @@ GREATEST_SUITE(strbuff_test)
     RUN_TEST(str_append_work);
     RUN_TEST(file_get_line_work);
     RUN_TEST(pointer_switching);
+    RUN_TEST(make_normal_string);
 }
 
 #endif // H_STRBUFF_TEST

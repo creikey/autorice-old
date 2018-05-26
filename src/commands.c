@@ -32,10 +32,8 @@ char *get_command_path(const char *command_name)
     S_ASSERT(fp, to_error->data);
 
     get_line(to_return, fp);
-    char * c_to_return = to_return->data;
-    free(to_return);
 
     del_str_buff(to_error);
     del_str_buff(to_run);
-    return to_return;
+    return make_n_str(to_return);
 }

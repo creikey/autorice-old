@@ -14,14 +14,13 @@ all: $(OBJS) $(HEADERS)
 	gcc $(OBJS) $(CFLAGS) -o $(EXNAME)
 
 clean:
-	-rm a.out
+	-rm *.out
 	-rm *.o
-	-rm test
 
 debug: CFLAGS += -g
 debug: all
 
 test: CFLAGS += -DDOTEST
-test: EXNAME = test
+test: EXNAME = test.out
 test: clean
 test: all

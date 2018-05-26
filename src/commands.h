@@ -5,4 +5,6 @@
 
 void init_commands();
 
+char *get_command_path(const char *command_name);
+
 #endif
