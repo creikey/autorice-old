@@ -4,26 +4,28 @@ CFLAGS = -Wall -Igreatest/
 
 SRC=$(wildcard *.c)
 HEADERS=$(wildcard *.h)
+BUILDDIR=build
 EXNAME=a.out
-OBJS=$(SRC:.c=.o)
+TMPOBJS=$(SRC:.c=.o)
+OBJS=$(addprefix $(BUILDDIR)/, $(TMPOBJS))
 
-%.o : %.c %.h
+$(BUILDDIR)/%.o : %.c
 	gcc -c $(CFLAGS) $< -o $@
 
 all: fix-main $(OBJS) $(HEADERS)
 	gcc $(OBJS) $(CFLAGS) -o $(EXNAME)
 
 fix-main:
-	-rm main.o
+	-rm -f $(BUILDDIR)/main.o
 
 clean:
-	-rm *.out
-	-rm *.o
+	-rm -f $(BUILDDIR)/*.o
+	-rm -f a.out
+	-rm -f test.out
 
 debug: CFLAGS += -g
 debug: all
 
 test: CFLAGS += -DDOTEST
 test: EXNAME = test.out
-test: fix-main
 test: all
