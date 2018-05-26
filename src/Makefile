@@ -10,8 +10,11 @@ OBJS=$(SRC:.c=.o)
 %.o : %.c %.h
 	gcc -c $(CFLAGS) $< -o $@
 
-all: $(OBJS) $(HEADERS)
+all: fix-main $(OBJS) $(HEADERS)
 	gcc $(OBJS) $(CFLAGS) -o $(EXNAME)
+
+fix-main:
+	-rm main.o
 
 clean:
 	-rm *.out
@@ -22,5 +25,5 @@ debug: all
 
 test: CFLAGS += -DDOTEST
 test: EXNAME = test.out
-test: clean
+test: fix-main
 test: all
