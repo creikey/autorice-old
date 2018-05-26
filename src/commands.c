@@ -35,5 +35,7 @@ char *get_command_path(const char *command_name)
 
     del_str_buff(to_error);
     del_str_buff(to_run);
+    pclose(fp);
     return make_n_str(to_return);
 }
+
