@@ -1,2 +1,2 @@
 # autorice
-A set of resources and bash scripts to automatically get i3 working and other dotfiles on an arch linux machine
+An arch linux installer written in C that changes the background, generally makes things look cool
