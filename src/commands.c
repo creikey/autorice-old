@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <assert.h>
+#include <stdlib.h>
+#include <linux/limits.h>
 #include <string.h>
 
 #include "commands.h"
@@ -8,14 +10,14 @@
 
 void init_commands()
 {
-    printf("Initializing commands...");
+    S_LOG("Initializing commands...");
     FILE *whis_fp = NULL;
     whis_fp = fopen(WHICH_PATH, "r");
     S_ASSERT(whis_fp, "Could not find `which` binary");
     fclose(whis_fp);
 }
 
-char *get_command_path(const char *command_name)
+str_buff *get_command_path(const char *command_name)
 {
     FILE *fp = NULL;
     str_buff *to_run = new_str_buff();
@@ -24,7 +26,7 @@ char *get_command_path(const char *command_name)
     append_char(to_run, ' ');
     append_str(to_run, command_name, strlen(command_name));
 
-    printf("Finding command %s...", command_name);
+    S_LOG("Finding command %s...", command_name);
     fp = popen(to_run->data, "r");
     str_buff *to_error = new_str_buff();
     append_str(to_error, "Popen returned null when opening the command ", strlen("Popen returned null when opening the command "));
@@ -36,6 +38,17 @@ char *get_command_path(const char *command_name)
     del_str_buff(to_error);
     del_str_buff(to_run);
     pclose(fp);
-    return make_n_str(to_return);
+    return to_return;
 }
 
+str_buff *get_absolute_path(const char *in_path)
+{
+    S_LOG("Finding real path for %s...", in_path);
+    str_buff *to_return = new_str_buff();
+    char actual_path[PATH_MAX + 1];
+    char *got = NULL;
+    got = realpath(in_path, actual_path);
+    S_ASSERT(got, "Pointer from realpath was null");
+    append_str(to_return, got, strlen(got));
+    return to_return;
+}

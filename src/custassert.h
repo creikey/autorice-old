@@ -2,8 +2,16 @@
 #define H_CUSTASSERT
 
 #include <assert.h>
+#include <stdbool.h>
 
-#define S_ASSERT(x, y) assert(_s_assert((void *)x, y))
+extern bool print_logs;
+
+#define S_ASSERT(x, y) if(print_logs) { \
+assert(_s_assert((void *)x, y)); \
+}
+#define S_LOG(...) if(print_logs) { \
+printf(__VA_ARGS__); \
+}
 
 int _s_assert(void *thing, const char *fail_explanation);
 

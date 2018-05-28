@@ -19,8 +19,8 @@ void append_char(str_buff *in_buff, char in_char);
 
 void append_str(str_buff *in_buff, const char *in_str, size_t in_size);
 
-void get_line(str_buff *in_buff, FILE *fp);
+void append_str_ns(str_buff * in_buff, const char * in_str);
 
-char * make_n_str(str_buff * in_buff);
+void get_line(str_buff *in_buff, FILE *fp);
 
 #endif // H_STRBUFF

@@ -54,16 +54,17 @@ TEST pointer_switching(void)
     char *tmp = test_buff->data;
     free(test_buff);
     ASSERT_STR_EQ(to_test, tmp);
+    free(tmp);
     PASS();
 }
 
-TEST make_normal_string(void)
+TEST append_string_no_size(void)
 {
-    const char * to_test = "fjdsfffdsf\n\nWE ";
+    const char * to_test = "fdfdsklfj @JL#!!";
     str_buff * test_buff = new_str_buff();
-    append_str(test_buff, to_test, strlen(to_test));
-    char * got = make_n_str(test_buff);
-    ASSERT_STR_EQ(to_test, got);
+    append_str_ns(test_buff, to_test);
+    ASSERT_STR_EQ(to_test, test_buff->data);
+    del_str_buff(test_buff);
     PASS();
 }
 
@@ -73,7 +74,7 @@ GREATEST_SUITE(strbuff_test)
     RUN_TEST(str_append_work);
     RUN_TEST(file_get_line_work);
     RUN_TEST(pointer_switching);
-    RUN_TEST(make_normal_string);
+    RUN_TEST(append_string_no_size);
 }
 
 #endif // H_STRBUFF_TEST

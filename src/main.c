@@ -3,6 +3,13 @@
 #include "greatest.h"
 #include "tests.test.h"
 #include "commands.h"
+#include "custassert.h"
+
+#ifdef DOTEST
+bool print_logs = false;
+#else
+bool print_logs = true;
+#endif
 
 GREATEST_MAIN_DEFS();
 
