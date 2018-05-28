@@ -24,7 +24,12 @@ clean:
 	-rm -f test.out
 
 debug: CFLAGS += -g
+debug: clean
 debug: all
+
+debug-test: CFLAGS += -g
+debug-test: clean
+debug-test: test
 
 test: CFLAGS += -DDOTEST
 test: EXNAME = test.out

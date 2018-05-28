@@ -26,12 +26,10 @@ str_buff *get_command_path(const char *command_name)
     append_char(to_run, ' ');
     append_str(to_run, command_name, strlen(command_name));
 
-    S_LOG("Finding command %s...", command_name);
     fp = popen(to_run->data, "r");
     str_buff *to_error = new_str_buff();
     append_str(to_error, "Popen returned null when opening the command ", strlen("Popen returned null when opening the command "));
     append_str(to_error, to_run->data, strlen(to_run->data));
-    S_ASSERT(fp, to_error->data);
 
     get_line(to_return, fp);
 
@@ -43,12 +41,20 @@ str_buff *get_command_path(const char *command_name)
 
 str_buff *get_absolute_path(const char *in_path)
 {
-    S_LOG("Finding real path for %s...", in_path);
     str_buff *to_return = new_str_buff();
     char actual_path[PATH_MAX + 1];
     char *got = NULL;
     got = realpath(in_path, actual_path);
-    S_ASSERT(got, "Pointer from realpath was null");
     append_str(to_return, got, strlen(got));
+    return to_return;
+}
+
+command_output *open_command(const char *absolute_command_path)
+{
+    command_output *to_return = malloc(sizeof *to_return);
+    to_return->output = new_str_buff();
+    to_return->err_code = 0;
+    to_return->finished = false;
+    to_return->command_fp = popen(absolute_command_path, "r");
     return to_return;
 }

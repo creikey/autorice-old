@@ -23,4 +23,6 @@ void append_str_ns(str_buff * in_buff, const char * in_str);
 
 void get_line(str_buff *in_buff, FILE *fp);
 
+void clear_strbuff(str_buff * in_buff);
+
 #endif // H_STRBUFF

@@ -21,9 +21,7 @@ int main(int argc, char **argv)
   RUN_ALL_SUITS();
   GREATEST_MAIN_END();
 #else
-
   init_commands();
   printf("Hello, world!\n");
-  return 0;
 #endif // DOTEST
 }

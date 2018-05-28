@@ -60,10 +60,23 @@ TEST pointer_switching(void)
 
 TEST append_string_no_size(void)
 {
-    const char * to_test = "fdfdsklfj @JL#!!";
-    str_buff * test_buff = new_str_buff();
+    const char *to_test = "fdfdsklfj @JL#!!";
+    str_buff *test_buff = new_str_buff();
     append_str_ns(test_buff, to_test);
     ASSERT_STR_EQ(to_test, test_buff->data);
+    del_str_buff(test_buff);
+    PASS();
+}
+
+TEST clear_strbuff_work(void)
+{
+    const char *first = "fdkflj@LJL@L!L\n\n1312";
+    const char *second = "JKFKDJK@2323Jsjfjl\n\n";
+    str_buff *test_buff = new_str_buff();
+    append_str_ns(test_buff, first);
+    clear_strbuff(test_buff);
+    append_str_ns(test_buff, second);
+    ASSERT_STR_EQ(test_buff->data, second);
     del_str_buff(test_buff);
     PASS();
 }
@@ -75,6 +88,7 @@ GREATEST_SUITE(strbuff_test)
     RUN_TEST(file_get_line_work);
     RUN_TEST(pointer_switching);
     RUN_TEST(append_string_no_size);
+    RUN_TEST(clear_strbuff_work);
 }
 
 #endif // H_STRBUFF_TEST
