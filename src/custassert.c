@@ -19,3 +19,12 @@ int _s_success()
     }
     return 1;
 }
+
+char s_getc()
+{
+    if (print_logs)
+    {
+        return fgetc(stdin);
+    }
+    return 'y';
+}

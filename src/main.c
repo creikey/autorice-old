@@ -5,6 +5,7 @@
 #include "commands.h"
 #include "ascpaint.h"
 #include "custassert.h"
+#include "network.h"
 
 #ifdef DOTEST
 bool print_logs = false;
@@ -32,8 +33,6 @@ int main(int argc, char **argv)
   asc_paint_str("_");
   init_commands();
   init_ascpaint();
-  S_LOG("Checking network...");
-  int network_err = system("scripts/network-online.sh");
-  S_ASSERT(network_err == 0, "Unable to connect to network");
+  check_network();
 #endif // DOTEST
 }
