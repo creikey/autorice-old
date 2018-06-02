@@ -14,8 +14,9 @@ void check_network()
         S_LOG("Set up network? ");
         assert(s_getc() == 'y');
         printf("\n");
-        center_text("Setting Up Network");
         asc_paint_str("-");
+        center_text("Setting Up Network");
+        asc_paint_str("+");
         set_up_network();
         asc_paint_str("_");
     }
@@ -25,4 +26,7 @@ void set_up_network()
 {
     int setup_err = system(SET_UP_NETWORK_SCRIPT);
     assert(setup_err == 0);
+    S_LOG("Checking network setup...");
+    int network_err = system(CHECK_NETWORK_SCRIPT);
+    assert(S_ASSERT(network_err == 0, "Setup failed"));
 }
