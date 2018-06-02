@@ -3,6 +3,7 @@
 #include "greatest.h"
 #include "tests.test.h"
 #include "commands.h"
+#include "ascpaint.h"
 #include "custassert.h"
 
 #ifdef DOTEST
@@ -21,7 +22,18 @@ int main(int argc, char **argv)
   RUN_ALL_SUITS();
   GREATEST_MAIN_END();
 #else
+  clear_screen();
+  asc_paint_str("=");
+  asc_paint_str("-");
+  asc_paint_str("_");
+  asc_paint_str("  -");
+  center_text("Ricing Desktop");
+  center_text(" - c  r  e  i  k  e  y - ");
+  asc_paint_str("_");
   init_commands();
-  printf("Hello, world!\n");
+  init_ascpaint();
+  S_LOG("Checking network...");
+  int network_err = system("scripts/network-online.sh");
+  S_ASSERT(network_err == 0, "Unable to connect to network");
 #endif // DOTEST
 }
