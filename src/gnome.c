@@ -12,7 +12,7 @@ void install_gnome()
     center_text("Installing Gnome");
     asc_paint_str("+");
     fflush(stdout);
-    call_install_nm_script();
+    call_install_gnome_script();
     asc_paint_str("~");
 }
 
