@@ -8,8 +8,8 @@ else
     printf "OK!\n"
 fi
 
-printf "Verifying sudoers file..."
-visudo -c -f sudoers >/dev/null 2>&1
+printf "Verifying sudoers file... |\n"
+visudo -c -f sudoers
 err="$?"
 if [ "$err" != "0" ]; then
     printf "FAIL!\n> sudoers file failed to verify with err $err\n"
