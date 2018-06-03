@@ -9,6 +9,7 @@
 #include "mirrorlist.h"
 #include "pkgupdate.h"
 #include "installnm.h"
+#include "gnome.h"
 
 #ifdef DOTEST
 bool print_logs = false;
@@ -40,5 +41,6 @@ int main(int argc, char **argv)
   update_mirrorlist();
   update_packages();
   install_nm();
+  install_gnome();
 #endif // DOTEST
 }
