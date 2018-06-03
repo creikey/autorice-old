@@ -11,6 +11,7 @@
 #include "installnm.h"
 #include "gnome.h"
 #include "users.h"
+#include "installxorg.h"
 
 #ifdef DOTEST
 bool print_logs = false;
@@ -42,6 +43,7 @@ int main(int argc, char **argv)
   update_mirrorlist();
   update_packages();
   setup_users();
+  install_xorg();
   install_nm();
   install_gnome();
 #endif // DOTEST
