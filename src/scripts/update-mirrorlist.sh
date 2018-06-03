@@ -26,8 +26,26 @@ else
     printf "OK!\n"
 fi
 
+printf "Fixing up downloaded mirrorlist..."
+sed 's/^.//' "$MIRRORLIST_FILENAME" > "${MIRRORLIST_FILENAME}.new"
+err="$?"
+if [ "$err" != "0" ]; then
+  printf "FAIL!\n> Failed to uncomment servers with err code $err\n"
+  exit 1
+elif [ ! -f "${MIRRORLIST_FILENAME}.new" ]; then
+  printf "FAIL!\n> Cannot find output file from sed\n"
+  exit 1
+fi
+mv "${MIRRORLIST_FILENAME}.new" "$MIRRORLIST_FILENAME"
+err="$?"
+if [ "$err" != "0" ]; then
+  printf "FAIL!\n> Failed to move new mirrorlist into the old one with err code $err\n"
+  exit 1
+fi
+printf "OK!\n"
+
 printf "Moving mirrorlist..."
-cp "$MIRRORLIST_FILENAME" "${SYS_MIRRORLIST}"
+mv "$MIRRORLIST_FILENAME" "${SYS_MIRRORLIST}"
 err="$?"
 if [ "$err" != "0" ]; then
     printf "FAIL!\n> Exited with error code ${err}\n"
