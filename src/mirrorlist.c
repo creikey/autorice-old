@@ -17,7 +17,7 @@ void update_mirrorlist()
     asc_paint_str("+");
     fflush(stdout);
     call_mirrorlist_script();
-    asc_paint_str("_");
+    asc_paint_str("~");
 }
 
 void call_mirrorlist_script()
