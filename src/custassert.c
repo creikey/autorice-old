@@ -22,9 +22,14 @@ int _s_success()
 
 char s_getc()
 {
-    if (print_logs)
+    if (!print_logs)
     {
-        return fgetc(stdin);
+        return 'y';
     }
-    return 'y';
+    char got_char = '\n';
+    while (got_char == '\n' || got_char == ' ')
+    {
+        got_char = fgetc(stdin);
+    }
+    return got_char;
 }
