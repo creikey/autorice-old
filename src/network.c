@@ -17,6 +17,7 @@ void check_network()
         asc_paint_str("-");
         center_text("Setting Up Network");
         asc_paint_str("+");
+        fflush(stdout);
         set_up_network();
         asc_paint_str("_");
     }

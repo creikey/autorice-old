@@ -15,6 +15,7 @@ void update_mirrorlist()
     asc_paint_str("-");
     center_text("Updating mirrorlist");
     asc_paint_str("+");
+    fflush(stdout);
     call_mirrorlist_script();
     asc_paint_str("_");
 }
