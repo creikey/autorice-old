@@ -1,0 +1,2 @@
+pacman -Syy
+exit "$?"

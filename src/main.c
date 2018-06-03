@@ -7,6 +7,7 @@
 #include "custassert.h"
 #include "network.h"
 #include "mirrorlist.h"
+#include "pkgupdate.h"
 
 #ifdef DOTEST
 bool print_logs = false;
@@ -36,6 +37,7 @@ int main(int argc, char **argv)
   init_ascpaint();
   check_network();
   update_mirrorlist();
+  update_packages();
   //install_networkmanager();
 #endif // DOTEST
 }
