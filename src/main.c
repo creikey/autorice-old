@@ -10,6 +10,7 @@
 #include "pkgupdate.h"
 #include "installnm.h"
 #include "gnome.h"
+#include "users.h"
 
 #ifdef DOTEST
 bool print_logs = false;
@@ -40,6 +41,7 @@ int main(int argc, char **argv)
   check_network();
   update_mirrorlist();
   update_packages();
+  setup_users();
   install_nm();
   install_gnome();
 #endif // DOTEST

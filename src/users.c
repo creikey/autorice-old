@@ -6,6 +6,11 @@
 
 void setup_users()
 {
+    S_LOG("Set up users? ");
+    if (s_getc() != 'y')
+    {
+        return;
+    }
     S_LOG("Setting up users...");
     printf("\n");
     asc_paint_str("-");
