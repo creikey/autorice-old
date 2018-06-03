@@ -14,7 +14,7 @@ void update_packages()
     }
     printf("\n");
     asc_paint_str("-");
-    center_text("Updated packages");
+    center_text("Updating packages");
     asc_paint_str("+");
     fflush(stdout);
     call_updatepkg_script();
