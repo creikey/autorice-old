@@ -6,6 +6,7 @@
 #include "ascpaint.h"
 #include "custassert.h"
 #include "network.h"
+#include "mirrorlist.h"
 
 #ifdef DOTEST
 bool print_logs = false;
@@ -34,5 +35,7 @@ int main(int argc, char **argv)
   init_commands();
   init_ascpaint();
   check_network();
+  update_mirrorlist();
+  //install_networkmanager();
 #endif // DOTEST
 }

@@ -1,2 +1,4 @@
-ping -c 1 www.google.com >/dev/null 2>&1
+PING_URL="www.google.com"
+
+ping -c 1 "${PING_URL}" >/dev/null 2>&1
 exit "$?"
