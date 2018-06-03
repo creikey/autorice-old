@@ -1,3 +1,4 @@
+#!/bin/bash
 ipinfo="$(ip link)"
 printf "__\n$ipinfo\n--\n"
 while :
