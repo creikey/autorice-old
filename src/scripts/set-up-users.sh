@@ -1,3 +1,7 @@
+#!/bin/bash
+
+SUDOERS_FILE="scripts/sudoers"
+
 printf "Installing sudo... |\n"
 pacman -S sudo
 err="$?"
@@ -9,7 +13,7 @@ else
 fi
 
 printf "Verifying sudoers file... |\n"
-visudo -c -f sudoers
+visudo -c -f "${SUDOERS_FILE}"
 err="$?"
 if [ "$err" != "0" ]; then
     printf "FAIL!\n> sudoers file failed to verify with err $err\n"
@@ -19,7 +23,7 @@ else
 fi
 
 printf "Installing sudoers file..."
-cp sudoers /etc/sudoers
+cp "${SUDOERS_FILE}" /etc/sudoers
 err="$?"
 if [ "$err" != "0" ]; then
     printf "FAIL!\n> cp failed with err $err\n"
