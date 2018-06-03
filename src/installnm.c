@@ -7,7 +7,11 @@
 
 void install_nm()
 {
-    S_LOG("Installing networkmanager...")
+    S_LOG("Install networkmanager? ");
+    if(s_getc() != 'y')
+    {
+        return;
+    }
     printf("\n");
     asc_paint_str("-");
     center_text("Installing networkmanager");

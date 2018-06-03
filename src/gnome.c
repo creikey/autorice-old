@@ -6,7 +6,12 @@
 
 void install_gnome()
 {
-    S_LOG("Installing gnome...")
+    
+    S_LOG("Install gnome? ");
+    if(s_getc() != 'y')
+    {
+        return;
+    }
     printf("\n");
     asc_paint_str("-");
     center_text("Installing Gnome");
