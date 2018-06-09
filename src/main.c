@@ -45,7 +45,7 @@ int main(int argc, char **argv)
   setup_users();
   install_xorg();
   install_nm();
-  install_gnome();
+  install_kde();
   asc_paint_str("~|");
   center_text("Finished Boostrapping");
   center_text("For dotfile manager, see github.com/creikey/dotfiles.git");
