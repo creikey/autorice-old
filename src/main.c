@@ -9,7 +9,7 @@
 #include "mirrorlist.h"
 #include "pkgupdate.h"
 #include "installnm.h"
-#include "gnome.h"
+#include "kde.h"
 #include "users.h"
 #include "installxorg.h"
 
